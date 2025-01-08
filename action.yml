@@ -1,0 +1,27 @@
+name: Setup Pawn Compiler
+description: Install latest pawn compiler from the source
+
+input:
+  source:
+    description: Pawn Source Compiler
+    required: false
+    default: https://github.com/openmultiplayer/compiler.git
+
+outputs:
+  pawncc:
+    description: Pawn Compiler Command
+    value: '${{ steps.install.outputs.pawncc }}'
+
+runs:
+  using: composite
+  steps:
+    - name: Install compiler
+      id: install
+      shell: bash
+      run: |
+        echo Installing pawncc on "${{ runner.os }}"
+        ${GITHUB_ACTION_PATH}/install.sh "${{ runner.os }}"
+
+branding:
+  color: orange
+  icon: package
